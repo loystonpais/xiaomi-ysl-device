@@ -1,0 +1,21 @@
+./build.sh -b workdir
+
+./build/prepare-fake-ota.sh out/device_ysl_usrmerge.tar.xz ota
+
+./build/system-image-from-ota.sh ota/ubuntu_command images
+
+
+telnet 192.168.2.15
+
+find / -name "*deviceinfo*"
+
+
+
+# ssh connection
+sudo ip link set enp1s0 address 02:11:22:33:44:55 # if no mac address
+sudo ip address add 10.15.19.100/24 dev enp1s0
+sudo ip link set enp1s0 up
+ssh phablet@10.15.19.82
+
+# working for focal
+ssh -p 8022 phablet@10.15.19.82

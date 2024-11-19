@@ -1,0 +1,25 @@
+flashlight works
+ echo 1000 > /sys/class/leds/flashlight/brightness
+value, 0 and 1000
+
+
+
+this brightness doesnt seem to work
+exists at /sys/class/leds/lcd-backlight/brightness
+
+
+brightness works from here
+/sys/class/leds/wled/brightness
+value 0 4095
+
+
+
+
+dot led works, /sys/class/leds/<green|red>/brightness
+value, 0 and 150
+
+
+
+flash 0 and 1 dont work
+/sys/class/leds/led\:flash_<0|1>/brightness
+torch 0 and 1 dont work

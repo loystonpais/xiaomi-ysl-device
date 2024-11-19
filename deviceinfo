@@ -1,0 +1,78 @@
+deviceinfo_name="Redmi Y2/S2"
+deviceinfo_manufacturer="Xiaomi"
+deviceinfo_codename="ysl"
+deviceinfo_arch="aarch64"
+deviceinfo_kernel_source="https://github.com/loystonpais/kernel_xiaomi_msm8953-ysl.git"
+deviceinfo_kernel_source_branch="halium-9"
+deviceinfo_kernel_defconfig="ysl_defconfig halium.config"
+
+
+# COMMANDLINE
+# from commit
+#deviceinfo_kernel_cmdline="console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 vmalloc=350M loop.max_part=7 apparmor=1 security=apparmor systempart=/dev/disk/by-partlabel/system"
+
+# from extracted boot.img
+# androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000 firmware_class.path=/vendor/firmware_mnt/image androidboot.selinux=permissive buildvariant=userdebug
+
+# created by me v1
+#deviceinfo_kernel_cmdline="console=tty0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000 firmware_class.path=/vendor/firmware_mnt/image androidboot.selinux=permissive buildvariant=userdebug"
+# v2
+#deviceinfo_kernel_cmdline="console=tty0 bootopt=64S3,32N2,64N2 androidboot.console=ttyHSL0 vmalloc=350M apparmor=1 security=apparmor loop.max_part=7 user_debug=30 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 buildvariant=userdebug androidboot.selinux=permissive firmware_class.path=/vendor/firmware_mnt/image systempart=/dev/disk/by-partlabel/system"
+
+#v3 trial to fix dmesg kernel spam
+deviceinfo_kernel_cmdline="console=tty0 bootopt=64S3,32N2,64N2 systempart=/dev/disk/by-partlabel/system"
+
+#############
+
+
+
+deviceinfo_kernel_clang_compile="false"
+#deviceinfo_kernel_use_lld="true"
+#deviceinfo_kernel_llvm_compile="true"
+
+
+
+# from commit
+deviceinfo_kernel_apply_overlay="false"
+
+# from manual
+#deviceinfo_kernel_use_lld="true"
+
+# from manual
+deviceinfo_bootimg_header_version="0"
+deviceinfo_halium_version="9"
+
+# from manual (not known yet)
+#deviceinfo_bootimg_prebuilt_dtb="<not known yet>.dtb"
+deviceinfo_bootimg_prebuilt_dtb="ysl_msm8953.dtb"
+deviceinfo_dtb="qcom/ysl_msm8953.dtb"
+# THIS MIGHT BE IT
+# TAKES DTBS FROM KERNEL
+#deviceinfo_dtbo="mediatek/galahad.dtbo mediatek/lancelot.dtbo"
+
+# from extracted boot.img
+deviceinfo_flash_pagesize="2048"
+deviceinfo_flash_offset_base="0x00000000"
+deviceinfo_flash_offset_kernel="0x80008000"
+deviceinfo_flash_offset_ramdisk="0x81000000"
+deviceinfo_flash_offset_second="0x80f00000"
+deviceinfo_flash_offset_tags="0x80000100"
+deviceinfo_bootimg_os_version="9"
+deviceinfo_bootimg_os_patch_level="2019-08"
+
+# not found in extracted boot.img
+#deviceinfo_flash_offset_dtb="<0x47880000>"
+
+
+# disabled because not sure
+#deviceinfo_generate_bootimg="true"
+deviceinfo_bootimg_qcdt="true"
+
+#deviceinfo_flash_offset_base="0x80000000"
+#deviceinfo_flash_offset_ramdisk="0x81000000"
+#deviceinfo_flash_pagesize="2048"
+
+
+# from generic adaptation build repo
+deviceinfo_ubuntu_touch_release="focal"
+

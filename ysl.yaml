@@ -1,0 +1,24 @@
+ysl:
+  Name: ysl
+  PrettyName: Redmi Y2/S2
+  DeviceType: phone
+  PrimaryOrientation: Portrait
+  PortraitOrientation: Portrait
+  MirAndroidPlatformClientEglFlush:
+    - all
+  MirAndroidPlatformClientFenceSync:
+    - all
+  MirAndroidPlatformServerBackpressure:
+    - true
+  MirAndroidPlatformServerClearFbFence:
+    - true
+  MirAndroidPlatformServerEglSync:
+    - false
+  MirAndroidPlatformServerPartialUpdates:
+    - true
+  BacklightSysfsPath: /sys/class/leds/wled/brightness
+  VibrateDurationExtraMs: 50
+  FlashlightSysfsPath: "/sys/class/leds/flashlight/brightness"
+  FlashlightSwitchPath: "/sys/class/leds/flashlight/brightness"
+  
+  
