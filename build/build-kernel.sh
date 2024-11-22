@@ -3,6 +3,7 @@ set -ex
 
 TMPDOWN=$1
 INSTALL_MOD_PATH=$2
+MENUCONFIG=$3
 HERE=$(pwd)
 source "${HERE}/deviceinfo"
 
@@ -19,10 +20,21 @@ case "$deviceinfo_arch" in
     x86) ARCH="x86" ;;
 esac
 
-export ARCH
-export CROSS_COMPILE="${deviceinfo_arch}-linux-android-"
+if [ -n "$deviceinfo_kernel_clang_compile" ] && $deviceinfo_kernel_clang_compile; then
+    # Newer Android kernels no longer support setting CLANG_TRIPLE
+    if grep -q CLANG_TRIPLE "$KERNEL_DIR/Makefile"; then
+        : "${CLANG_TRIPLE:=${deviceinfo_arch}-linux-gnu-}"
+    else
+        : "${CROSS_COMPILE:=${deviceinfo_arch}-linux-gnu-}"
+    fi
+fi
+
+: "${CROSS_COMPILE:=${deviceinfo_arch}-linux-android-}"
+export ARCH CLANG_TRIPLE CROSS_COMPILE
+
 if [ "$ARCH" == "arm64" ]; then
-    export CROSS_COMPILE_ARM32=arm-linux-androideabi-
+    : "${CROSS_COMPILE_ARM32:=arm-linux-androideabi-}"
+    export CROSS_COMPILE_ARM32
 fi
 MAKEOPTS=""
 if [ -n "$CC" ]; then
@@ -31,9 +43,17 @@ fi
 if [ -n "$LD" ]; then
     MAKEOPTS+=" LD=$LD"
 fi
+if [ -n "$deviceinfo_kernel_llvm_compile" ] && $deviceinfo_kernel_llvm_compile; then
+    MAKEOPTS+=" LLVM=1 LLVM_IAS=1"
+     # Have host compiler use LLD and compiler-rt.
+    export HOSTLDFLAGS="-fuse-ld=lld --rtlib=compiler-rt"
+fi
 
 cd "$KERNEL_DIR"
 make O="$OUT" $MAKEOPTS $deviceinfo_kernel_defconfig
+if ${MENUCONFIG:-false}; then
+    make O="$OUT" $MAKEOPTS menuconfig
+fi
 make O="$OUT" $MAKEOPTS -j$(nproc --all)
 if [ "$deviceinfo_kernel_disable_modules" != "true" ]
 then

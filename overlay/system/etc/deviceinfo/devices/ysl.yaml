@@ -1,5 +1,6 @@
 ysl:
-  Name: ysl
+  Names: 
+    - ysl
   PrettyName: Redmi Y2/S2
   DeviceType: phone
   PrimaryOrientation: Portrait

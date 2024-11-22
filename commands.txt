@@ -19,3 +19,5 @@ ssh phablet@10.15.19.82
 
 # working for focal
 ssh -p 8022 phablet@10.15.19.82
+
+adb pull /data/system-data/var/log log
